@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Quiz" Class="ConverterDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Quiz.mdf;Integrated Security=True" SettingsObjectName="Baigiamasis_Darbas.Properties.Settings" SettingsPropertyName="QuizConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Quiz" Member="Quizs">
+    <Type Name="Quiz">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Theme_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quiz_Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Quiz_Quiz_question" Member="Quiz_questions" ThisKey="Id" OtherKey="Quiz_id" Type="Quiz_question" />
+      <Association Name="Theme_Quiz" Member="Theme" ThisKey="Theme_id" OtherKey="Id" Type="Theme" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Quiz_questions" Member="Quiz_questions">
+    <Type Name="Quiz_question">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quiz_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Question" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="Quiz_Quiz_question" Member="Quiz" ThisKey="Quiz_id" OtherKey="Id" Type="Quiz" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Theme" Member="Themes">
+    <Type Name="Theme">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Theme_Quiz" Member="Quizs" ThisKey="Id" OtherKey="Theme_id" Type="Quiz" />
+    </Type>
+  </Table>
+</Database>
